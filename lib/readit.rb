@@ -83,12 +83,15 @@ module Readit
     # per_page default 20,max 50
     # exclude_accessibility
     # only_deleted
+    # @returns A mashable object containing the conditions used in the request,
+    # the list of bookmarks requested and a meta object (num_pages, page,
+    # item_count and item_count_total)
     def bookmarks(args={})
       if args[:bookmark_id] and args[:bookmark_id]!=''
         request(:get,"/bookmarks/#{args[:bookmark_id]}")
       else
         params = args.map{|k,v| "#{k}=#{v}"}.join('&')
-        request(:get,"/bookmarks?#{URI.escape(params)}").bookmarks
+        request(:get,"/bookmarks?#{URI.escape(params)}")
       end
     end
 
